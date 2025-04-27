@@ -1,0 +1,48 @@
+1) Statement to create the Contact table 
+
+mysql> create database MarketCoo;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> use MarketCoo;
+Database changed
+
+mysql> create table Contact(Contactid int primary key auto_increment, Companyid int, Firstname varchar(45), Lastname varchar(45), Street varchar(45), City varchar(45), State varchar(2), Zip varchar(10), IsMain Boolean, Email varchar(45), Phone varchar(12));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> describe Contact;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| Contactid | int         | NO   | PRI | NULL    | auto_increment |
+| Companyid | int         | YES  |     | NULL    |                |
+| Firstname | varchar(45) | YES  |     | NULL    |                |
+| Lastname  | varchar(45) | YES  |     | NULL    |                |
+| Street    | varchar(45) | YES  |     | NULL    |                |
+| City      | varchar(45) | YES  |     | NULL    |                |
+| State     | varchar(2)  | YES  |     | NULL    |                |
+| Zip       | varchar(10) | YES  |     | NULL    |                |
+| IsMain    | tinyint(1)  | YES  |     | NULL    |                |
+| Email     | varchar(45) | YES  |     | NULL    |                |
+| Phone     | varchar(12) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+11 rows in set (0.05 sec)
+
+2) Statement to create the Employee table
+
+mysql> create table Employee(EmployeeID int, Firstname varchar(45), Lastname varchar(45), Salary decimal(10,2), HireDate date, JobTitle varchar(45), Email varchar(45), Phone varchar(12));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> describe Employee;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| EmployeeID | int           | YES  |     | NULL    |       |
+| Firstname  | varchar(45)   | YES  |     | NULL    |       |
+| Lastname   | varchar(45)   | YES  |     | NULL    |       |
+| Salary     | decimal(10,2) | YES  |     | NULL    |       |
+| HireDate   | date          | YES  |     | NULL    |       |
+| JobTitle   | varchar(45)   | YES  |     | NULL    |       |
+| Email      | varchar(45)   | YES  |     | NULL    |       |
+| Phone      | varchar(12)   | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+8 rows in set (0.07 sec)
