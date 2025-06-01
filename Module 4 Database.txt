@@ -46,14 +46,16 @@ mysql> describe Employee;
 | Phone      | varchar(12)   | YES  |     | NULL    |       |
 +------------+---------------+------+-----+---------+-------+
 8 rows in set (0.07 sec)
+
+3) Statement to create the ContactEmployee table
+HINT: Use DATE as the datatype for ContactDate. It allows you to store the
+date in this format: YYYY-MM-DD (i.e., ‘2014-03-12’ for March 12, 2014).
 mysql> INSERT INTO Employee VALUES (1, 'Jon', 'Snow', 70000, '1990-01-01', 'software Engineer', 'jon@gmail.com', 256489712);
 Query OK, 1 row affected (0.24 sec)
-
 mysql> INSERT INTO Employee VALUES (2, 'Lesley', 'Bland', 170000, '1995-01-05', 'Data Engineer', 'lesley@gmail.com', 84759462);
 Query OK, 1 row affected (0.06 sec)
 mysql> INSERT INTO Employee VALUES (3, 'Min', 'Hoo', 90000, '2000-01-25', 'Marketing Specialist', 'minhoo@gmail.com', 9265005596);
 Query OK, 1 row affected (0.08 sec)
-
 mysql> INSERT INTO Employee VALUES (4, 'Park', 'Jimin', 70000, '2006-12-29', 'Project Manager', 'parkg@gmail.com', 9265005478);
 Query OK, 1 row affected (0.05 sec)
 mysql> select * from employee;
@@ -66,6 +68,9 @@ mysql> select * from employee;
 |          4 | Park      | Jimin    |  70000.00 | 2006-12-29 | Project Manager      | parkg@gmail.com  | 9265005478 |
 +------------+-----------+----------+-----------+------------+----------------------+------------------+------------+
 4 rows in set (0.00 sec)
+
+4) In the Employee table, the statement that changes Lesley Bland’s phone number
+to 215-555-8800 
 mysql> update employee set Phone = '215-555-8800' where Firstname = 'Lesley' AND LastName = 'Bland';
 Query OK, 1 row affected (0.07 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
@@ -80,3 +85,51 @@ mysql> select * from employee;
 |          4 | Park      | Jimin    |  70000.00 | 2006-12-29 | Project Manager      | parkg@gmail.com  | 9265005478   |
 +------------+-----------+----------+-----------+------------+----------------------+------------------+--------------+
 4 rows in set (0.00 sec)
+
+5) In the Company table, the statement that changes the name of “Urban Outfitters, Inc.” to “Urban Outfitters” .
+mysql> create table company (companyID int primary key not null, companyname varchar(50), street varchar(50), city varchar(50), State varchar(15), Zip varchar(10));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> describe company;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| companyID   | int         | NO   | PRI | NULL    |       |
+| companyname | varchar(50) | YES  |     | NULL    |       |
+| street      | varchar(50) | YES  |     | NULL    |       |
+| city        | varchar(50) | YES  |     | NULL    |       |
+| State       | varchar(15) | YES  |     | NULL    |       |
+| Zip         | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+mysql> insert into company values (101, "Google", "No 3 RMZ Infinity Tower E Old Madras Road", "Bangalore", "Karnataka", 560016);
+Query OK, 1 row affected (0.08 sec)
+mysql> insert into company values (102, "Infosys", "Plot No.44/97 A 3rd cross ElectronicCity HosurRoad", "Bangalore", "Karnataka", 560100);
+Query OK, 1 row affected (0.05 sec)
+mysql> insert into company values (103, "L&T", "Ballard Estate", "Mumbai", "Maharashtra", 400001);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from company;
++-----------+-------------+----------------------------------------------------+-----------+-------------+--------+
+| companyID | companyname | street                                             | city      | State       | Zip    |
++-----------+-------------+----------------------------------------------------+-----------+-------------+--------+
+|       101 | Google      | No 3 RMZ Infinity Tower E Old Madras Road          | Bangalore | Karnataka   | 560016 |
+|       102 | Infosys     | Plot No.44/97 A 3rd cross ElectronicCity HosurRoad | Bangalore | Karnataka   | 560100 |
+|       103 | L&T         | Ballard Estate                                     | Mumbai    | Maharashtra | 400001 |
++-----------+-------------+----------------------------------------------------+-----------+-------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update company set companyname = "Urban Outfitters" where companyID = 103;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from company;
++-----------+------------------+----------------------------------------------------+-----------+-------------+--------+
+| companyID | companyname      | street                                             | city      | State       | Zip    |
++-----------+------------------+----------------------------------------------------+-----------+-------------+--------+
+|       101 | Google           | No 3 RMZ Infinity Tower E Old Madras Road          | Bangalore | Karnataka   | 560016 |
+|       102 | Infosys          | Plot No.44/97 A 3rd cross ElectronicCity HosurRoad | Bangalore | Karnataka   | 560100 |
+|       103 | Urban Outfitters | Ballard Estate                                     | Mumbai    | Maharashtra | 400001 |
++-----------+------------------+----------------------------------------------------+-----------+-------------+--------+
+3 rows in set (0.00 sec)
+
