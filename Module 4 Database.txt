@@ -46,3 +46,37 @@ mysql> describe Employee;
 | Phone      | varchar(12)   | YES  |     | NULL    |       |
 +------------+---------------+------+-----+---------+-------+
 8 rows in set (0.07 sec)
+mysql> INSERT INTO Employee VALUES (1, 'Jon', 'Snow', 70000, '1990-01-01', 'software Engineer', 'jon@gmail.com', 256489712);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> INSERT INTO Employee VALUES (2, 'Lesley', 'Bland', 170000, '1995-01-05', 'Data Engineer', 'lesley@gmail.com', 84759462);
+Query OK, 1 row affected (0.06 sec)
+mysql> INSERT INTO Employee VALUES (3, 'Min', 'Hoo', 90000, '2000-01-25', 'Marketing Specialist', 'minhoo@gmail.com', 9265005596);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO Employee VALUES (4, 'Park', 'Jimin', 70000, '2006-12-29', 'Project Manager', 'parkg@gmail.com', 9265005478);
+Query OK, 1 row affected (0.05 sec)
+mysql> select * from employee;
++------------+-----------+----------+-----------+------------+----------------------+------------------+------------+
+| EmployeeID | Firstname | Lastname | Salary    | HireDate   | JobTitle             | Email            | Phone      |
++------------+-----------+----------+-----------+------------+----------------------+------------------+------------+
+|          1 | Jon       | Snow     |  70000.00 | 1990-01-01 | software Engineer    | jon@gmail.com    | 256489712  |
+|          2 | Lesley    | Bland    | 170000.00 | 1995-01-05 | Data Engineer        | lesley@gmail.com | 84759462   |
+|          3 | Min       | Hoo      |  90000.00 | 2000-01-25 | Marketing Specialist | minhoo@gmail.com | 9265005596 |
+|          4 | Park      | Jimin    |  70000.00 | 2006-12-29 | Project Manager      | parkg@gmail.com  | 9265005478 |
++------------+-----------+----------+-----------+------------+----------------------+------------------+------------+
+4 rows in set (0.00 sec)
+mysql> update employee set Phone = '215-555-8800' where Firstname = 'Lesley' AND LastName = 'Bland';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------------+-----------+----------+-----------+------------+----------------------+------------------+--------------+
+| EmployeeID | Firstname | Lastname | Salary    | HireDate   | JobTitle             | Email            | Phone        |
++------------+-----------+----------+-----------+------------+----------------------+------------------+--------------+
+|          1 | Jon       | Snow     |  70000.00 | 1990-01-01 | software Engineer    | jon@gmail.com    | 256489712    |
+|          2 | Lesley    | Bland    | 170000.00 | 1995-01-05 | Data Engineer        | lesley@gmail.com | 215-555-8800 |
+|          3 | Min       | Hoo      |  90000.00 | 2000-01-25 | Marketing Specialist | minhoo@gmail.com | 9265005596   |
+|          4 | Park      | Jimin    |  70000.00 | 2006-12-29 | Project Manager      | parkg@gmail.com  | 9265005478   |
++------------+-----------+----------+-----------+------------+----------------------+------------------+--------------+
+4 rows in set (0.00 sec)
