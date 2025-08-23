@@ -133,3 +133,136 @@ mysql> select * from company;
 +-----------+------------------+----------------------------------------------------+-----------+-------------+--------+
 3 rows in set (0.00 sec)
 
+8) What is the significance of “%” and “_” operators in the LIKE statement? 
+
+Ans : The significance of the % and _ operators in the LIKE statement is that they act as wildcard characters, allowing you to perform flexible and powerful pattern-based searches in your database.
+
+Here's a breakdown of each:
+
+% (Percent sign)
+Significance: The % wildcard matches zero or more characters. It's the most versatile of the two, as it can represent any string of any length (including an empty string).
+
+Examples:
+
+WHERE ProductName LIKE 'Laptop%': Finds all products with names that start with "Laptop" (e.g., "Laptop Pro," "Laptop Air").
+
+WHERE City LIKE '%on': Finds all cities with names that end with "on" (e.g., "London," "Boston").
+
+WHERE Description LIKE '%waterproof%': Finds all descriptions that contain the word "waterproof" anywhere in the text.
+
+_ (Underscore)
+Significance: The _ wildcard matches exactly one single character. It's useful when you know the position of a character but not the character itself.
+
+Examples:
+
+WHERE ZipCode LIKE '9_210': Finds all zip codes that start with '9', have any single digit in the second position, and end with '210' (e.g., "90210," "98210").
+
+WHERE City LIKE 'S_n Jose': Finds the city "San Jose" and "Son Jose" but not "San Francisco".
+
+Use % when you're looking for a sequence of characters, regardless of how long it is.
+
+Use _ when you're looking for a pattern where you know the exact number of characters in a specific position.
+
+9) Explain normalization in the context of databases.
+
+Normalization in the context of databases is the systematic process of organizing data to reduce redundancy and improve data integrity. The goal is to design a flexible and robust database by structuring tables and their relationships according to a set of rules called "normal forms."
+
+The process typically involves breaking down a large, complex table into smaller, more manageable tables and defining relationships between them using primary and foreign keys. This helps to avoid data anomalies that can occur during insertion, updating, and deletion of data.
+
+
+Here are the most common normal forms:
+
+First Normal Form (1NF): The most basic level of normalization. To be in 1NF, a table must meet the following criteria:
+
+Each column must contain only atomic (single, indivisible) values. For example, a single cell should not contain a list of multiple values, like "John, Jane" in a "Children" column.
+
+
+Each record must be unique.
+
+Second Normal Form (2NF): A table is in 2NF if it is already in 1NF and all non-key attributes are fully dependent on the entire primary key. This is particularly relevant for tables with a composite primary key (a key made up of two or more columns). For example, if you have a table with a composite key of (Order_ID, Product_ID), a non-key attribute like Product_Name should only depend on Product_ID, not the entire key. To normalize this, you would move Product_Name to a separate Products table.
+
+
+Third Normal Form (3NF): A table is in 3NF if it is in 2NF and has no transitive dependencies. A transitive dependency occurs when a non-key attribute depends on another non-key attribute. For instance, in a table with a Student_ID primary key, City might depend on Zip_Code, which in turn depends on Student_ID. To normalize, you would create a separate table for Zip_Code and City.
+
+
+
+Higher normal forms exist, such as Boyce-Codd Normal Form (BCNF), Fourth Normal Form (4NF), and Fifth Normal Form (5NF), but 3NF is often considered a sufficient level of normalization for most business applications.
+
+Normalization is important because it:
+
+Reduces data redundancy: Storing data only once saves space and eliminates the risk of inconsistencies.
+
+Improves data integrity: Ensures that data is accurate and consistent throughout the database.
+
+10) What does a join in MySQL mean?
+
+In MySQL, a JOIN is a clause used in a SELECT statement to combine rows from two or more tables based on a related column between them. This is a fundamental operation in relational databases, as it allows you to retrieve a comprehensive set of data that is logically split across multiple tables.
+
+The primary purpose of using a JOIN is to:
+
+Combine Data: It "stitches" together data from different tables, allowing you to create a result set that includes columns from all the joined tables.
+
+Reduce Redundancy: In a normalized database, data is stored in separate tables to avoid duplication. For example, you might have a Customers table and an Orders table. Instead of storing customer name and address with every order, you link the tables using a common key, like customer_id. A JOIN allows you to combine this information when you need it.
+
+The Most Common Types of Joins
+There are several types of joins, each serving a different purpose for how you want to combine the data:
+
+INNER JOIN: This is the most common type. It returns only the rows where there is a match in both tables based on the specified condition. Rows that do not have a corresponding match in the other table are excluded from the result.
+
+LEFT JOIN (or LEFT OUTER JOIN): This join returns all rows from the "left" table (the first table mentioned in the FROM clause) and the matching rows from the "right" table. If there is no match in the right table, the columns from that table will be NULL.
+
+RIGHT JOIN (or RIGHT OUTER JOIN): This is the opposite of a LEFT JOIN. It returns all rows from the "right" table and the matching rows from the "left" table. If there is no match in the left table, its columns will be NULL.
+
+
+CROSS JOIN: This join returns the Cartesian product of the tables. It combines every row from the first table with every row from the second table. This results in a very large number of rows and is generally used with caution, though it can be useful for specific tasks like generating combinations.
+
+Joins are typically used with an ON clause, which specifies the columns that link the tables together (e.g., ON table1.column_name = table2.column_name)
+
+11) 19.What do you understand about DDL, DCL, and DML in MySQL?
+
+In MySQL, DDL, DCL, and DML are categories of SQL commands that serve distinct purposes in managing and interacting with a database. Think of them as the different types of tools in a database administrator's toolbox, each designed for a specific job.
+
+Here is a breakdown of what each one means:
+
+DDL (Data Definition Language): This set of commands is used to define or modify the structure of the database. DDL commands deal with the database objects themselves, not the data they contain. They are used to create, alter, and delete schemas, tables, views, and indexes. Once a DDL command is executed, the changes are permanent and cannot be rolled back.
+
+Common Commands: CREATE, ALTER, DROP, TRUNCATE, RENAME.
+
+Example: CREATE TABLE Employees (id INT PRIMARY KEY, name VARCHAR(50)); This command creates a new table named Employees with two columns.
+
+DML (Data Manipulation Language): These commands are used to manage and manipulate the data within the database objects. DML commands do not change the structure of the database; they only affect the data stored in the tables. Unlike DDL, changes made with DML commands can often be rolled back.
+
+Common Commands: SELECT, INSERT, UPDATE, DELETE.
+
+Example: INSERT INTO Employees (id, name) VALUES (1, 'John Doe'); This command adds a new row of data into the Employees table.
+
+DCL (Data Control Language): This set of commands is focused on controlling access and permissions within the database. They are primarily used by database administrators to manage who can view, modify, or delete data and objects. DCL is essential for maintaining database security.
+
+Common Commands: GRANT, REVOKE.
+
+Example: GRANT SELECT ON Employees TO 'user1'; This command gives 'user1' permission to retrieve (select) data from the Employees table.
+
+12) What is the role of the MySQL JOIN clause in a query, and what are some
+common types of joins? 
+
+In MySQL, a JOIN clause is used in a query to combine rows from two or more tables based on a related column between them. This is a fundamental operation in a relational database, as it allows you to retrieve a complete set of data that is logically split across different tables.
+
+The primary role of a JOIN is to:
+
+Combine Data: It stitches together data from separate tables, allowing you to create a result set that includes columns from all the joined tables.
+
+Reduce Redundancy: In a normalized database, data is stored in separate tables to avoid duplication. For example, you might have a Customers table and an Orders table. Instead of storing a customer's name and address with every order, you link the tables using a common key, like customer_id. A JOIN allows you to combine this information when you need it.
+
+Common Types of Joins
+There are several types of joins, each serving a different purpose for how you want to combine the data:
+
+INNER JOIN: This is the most common type. It returns only the rows where there is a match in both tables based on the specified condition. Rows that do not have a corresponding match in the other table are excluded from the result.
+
+LEFT JOIN (or LEFT OUTER JOIN): This join returns all rows from the "left" table (the first table mentioned in the FROM clause) and the matching rows from the "right" table. If there is no match in the right table, the columns from that table will be NULL.
+
+RIGHT JOIN (or RIGHT OUTER JOIN): This is the opposite of a LEFT JOIN. It returns all rows from the "right" table and the matching rows from the "left" table. If there is no match in the left table, its columns will be NULL.
+
+CROSS JOIN: This join returns the Cartesian product of the tables. It combines every row from the first table with every row from the second table, resulting in a very large number of rows. It's used for generating all possible combinations.
+
+A JOIN is typically used with an ON clause, which specifies the columns that link the tables together (e.g., ON table1.column_name = table2.column_name).
+
