@@ -133,6 +133,192 @@ mysql> select * from company;
 +-----------+------------------+----------------------------------------------------+-----------+-------------+--------+
 3 rows in set (0.00 sec)
 
+6) In ContactEmployee table, the statement that removes Dianne Connor’s contact
+event with Jack Lee (one statement).
+HINT: Use the primary key of the ContactEmployee table to specify the correct record to remove.
+    
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| da                 |
+| information_schema |
+| mydb               |
+| mysql              |
+| ndb                |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use mydb;
+Database changed
+
+mysql> show tables;
++-----------------+
+| Tables_in_mydb  |
++-----------------+
+| company         |
+| employee        |
+| employees       |
+| staff           |
+| staff_contact   |
+| student_contact |
+| students        |
++-----------------+
+7 rows in set (0.00 sec)
+mysql> CREATE TABLE ContactEmployee(
+    -> ContactEmployeeID INT,
+    -> ContactID INT,
+    -> EmployeeID INT,
+    -> EmployeeName VARCHAR(45),
+    -> ContactDate Date,
+    -> Description VARCHAR(100)NULL
+    -> );
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> describe ContactEmployee;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| ContactEmployeeID | int          | YES  |     | NULL    |       |
+| ContactID         | int          | YES  |     | NULL    |       |
+| EmployeeID        | int          | YES  |     | NULL    |       |
+| EmployeeName      | varchar(45)  | YES  |     | NULL    |       |
+| ContactDate       | date         | YES  |     | NULL    |       |
+| Description       | varchar(100) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO ContactEmployee (ContactEmployeeID, ContactID, EmployeeID, EmployeeName, ContactDate, Description)
+    -> VALUES (1, 1, 2, 'Dianne Connor', '2024-06-10', 'Meeting with Jack Lee');
+Query OK, 1 row affected (0.12 sec)
+mysql> INSERT INTO ContactEmployee (ContactEmployeeID, ContactID, EmployeeID, EmployeeName, ContactDate, Description)
+    -> VALUES(2,2,2,'Lesly Balnd','2022-07-07','compnay policy');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from ContactEmployee;
++-------------------+-----------+------------+---------------+-------------+-----------------------+
+| ContactEmployeeID | ContactID | EmployeeID | EmployeeName  | ContactDate | Description           |
++-------------------+-----------+------------+---------------+-------------+-----------------------+
+|                 1 |         1 |          2 | Dianne Connor | 2024-06-10  | Meeting with Jack Lee |
+|                 2 |         2 |          2 | Lesly Balnd   | 2022-07-07  | compnay policy        |
++-------------------+-----------+------------+---------------+-------------+-----------------------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM ContactEmployee
+    -> WHERE ContactEmployeeID = 1;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> DELETE FROM ContactEmployee
+    -> WHERE EmployeeName = 'Dianne Connor' AND ContactID = 1;
+Query OK, 0 rows affected (0.00 sec)
+mysql> select * from ContactEmployee;
++-------------------+-----------+------------+--------------+-------------+----------------+
+| ContactEmployeeID | ContactID | EmployeeID | EmployeeName | ContactDate | Description    |
++-------------------+-----------+------------+--------------+-------------+----------------+
+|                 2 |         2 |          2 | Lesly Balnd  | 2022-07-07  | compnay policy |
++-------------------+-----------+------------+--------------+-------------+----------------+
+1 row in set (0.00 sec)
+
+7) Write the SQL SELECT query that displays the names of the employees that
+have contacted Toll Brothers (one statement). Run the SQL SELECT query in
+MySQL Workbench. Copy the results below as well
+ANS:-
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| contactdate        |
+| da                 |
+| information_schema |
+| mydb               |
+| mysql              |
+| ndb                |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (3.47 sec)
+
+mysql> use mydb;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_mydb  |
++-----------------+
+| company         |
+| contactemployee |
+| contacts        |
+| employee        |
+| employeees      |
+| employees       |
+| staff           |
+| staff_contact   |
+| student_contact |
+| students        |
++-----------------+
+10 rows in set (6.00 sec)
+
+CREATE TABLE Employeees (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+INSERT INTO Employees (employee_id, name) VALUES
+(1, 'Alice '),
+(2, 'Bob '),
+(3, 'Charlie ');
+
+mysql> select *from employeees;
++--------------+---------+
+| Employeee_id | name    |
++--------------+---------+
+|            1 | Alice   |
+|            2 | Bob     |
+|            3 | Charlie |
++--------------+---------+
+3 rows in set (0.00 sec)
+
+CREATE TABLE Contacts (
+    contact_id INT PRIMARY KEY,
+    employee_id INT,
+    company_name VARCHAR(100),
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
+);
+
+INSERT INTO Contacts (contact_id, employee_id, company_name) VALUES
+(1, 1, 'Toll Brothers' ),
+(2, 2, 'Google'),
+(3, 3, 'Toll Brothers'),
+
+mysql> select * from contacts;
++------------+-------------+---------------+
+| contact_id | employee_id | company_name  |
++------------+-------------+---------------+
+|        101 |           1 | Toll Brothers |
+|        102 |           2 | Google        |
+|        103 |           3 | Toll Brothers |
++------------+-------------+---------------+
+3 rows in set (0.00 sec)
+
+SELECT DISTINCT e.name
+FROM Employees e
+JOIN Contacts c ON e.employee_id = c.employee_id
+WHERE c.company_name = 'Toll Brothers';
+
++--------------+
+| name         |
++--------------+
+| Alice        |
+| Charlie      |
++--------------+
+2 rows in set (0.06 sec)
+
 8) What is the significance of “%” and “_” operators in the LIKE statement? 
 
 Ans : The significance of the % and _ operators in the LIKE statement is that they act as wildcard characters, allowing you to perform flexible and powerful pattern-based searches in your database.
@@ -265,4 +451,5 @@ RIGHT JOIN (or RIGHT OUTER JOIN): This is the opposite of a LEFT JOIN. It return
 CROSS JOIN: This join returns the Cartesian product of the tables. It combines every row from the first table with every row from the second table, resulting in a very large number of rows. It's used for generating all possible combinations.
 
 A JOIN is typically used with an ON clause, which specifies the columns that link the tables together (e.g., ON table1.column_name = table2.column_name).
+
 
